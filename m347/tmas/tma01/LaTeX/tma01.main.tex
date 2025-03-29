@@ -1,0 +1,309 @@
+\documentclass[11pt]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{a4paper, margin=1in}                % ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for for rotated page geometry
+
+%\usepackage{enumitem}
+%\parskip = \baselineskip
+%\setlength{\parskip}{5pt}
+%\setlength{\parindent}{0pt}
+%\usepackage[parfill]{parskip}    			% Activate to begin paragraphs with an empty line rather than an indent
+
+%\usepackage{enumitem}
+
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+
+% \usepackage{amsfonts}								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+% \usepackage{amsmath}
+
+\usepackage{hyperref}
+
+%\usepackage[nopar]{lipsum}
+%\setlength\parindent{0pt}			% globally suppress indentation
+
+%\usepackage{fancyvrb}
+
+\newenvironment{monoblock}%
+  {\ttfamily \small}%
+  {}
+  
+\newenvironment{tight_enumerate}{
+\begin{enumerate}
+  \setlength{\itemsep}{0pt}
+  \setlength{\parskip}{0pt}
+}{\end{enumerate}}
+  
+%\usepackage{listings}
+%\lstset{ %
+%language=C++,           % choose the language of the code
+%numbers=left,           % where to put the line-numbers
+%numberstyle=\tiny,      % the size of the fonts that are used for the line-numbers
+%basicstyle=\footnotesize    % the size of the fonts that are used for the line-numbers
+%}
+
+%\makeatletter
+%\def\@xobeysp{\mbox{}\space}
+%\def\verbatim@font{\normalfont\ttfamily}
+%\makeatother
+  
+%\usepackage{verbatim}% http://ctan.org/pkg/verbatim
+%\newenvironment{myverbatim}%
+%  {\endgraf\small\verbatim}%
+%  {\endverbatim}
+    
+\newenvironment{boxed}
+    {\begin{center}
+    \begin{tabular}{|p{0.9\textwidth}|}
+    \hline\\
+    }
+    { 
+    \\\\\hline
+    \end{tabular} 
+    \end{center}
+    }
+ 
+\title{M347 TMA01 R2698663}
+\author{Louis Botterill}
+\date{03-11-2017}					% Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+
+\pagebreak
+
+\section*{Question 1}
+
+$ X : M_X(t) = E\left[ e^{tX} \right] $ \\
+\\
+$ Y = aX + t $ \\
+\\
+$ M_Y(t) = E\left[ e^{tY} \right] $ \\
+\\
+$ M_Y(t) = E\left[ e^{t(aX + b)} \right] $ \\
+\\
+$ M_Y(t) = e^{tb} E\left[ e^{atX} \right] $ \\
+\\
+$ M_Y(t) = e^{bt} M_X(at) $ \\
+
+
+\section*{Question 2}
+
+\subsection*{2.a}
+
+$ X \sim Weibull( \beta ) $ \\
+\\
+$ X $ has a pdf of \\
+\\
+$ f(x) = \beta x^{\beta - 1} e^{-x^\beta} $ on $ x > 0 $ \\
+\\
+Show \\
+\\
+$ E(X^r ) = \Gamma (\frac{r}{\beta} + 1) $ \\
+\\
+By definition we have \\
+\\
+$ E(X^r) = \int_{ x = a }^b x^r f(x) \ dx $ \\
+\\
+$ \Gamma(n) = \int_{x = 0}^{\infty} x^{n-1} e^{-x} \ dx $ \\
+\\
+Using the integration by substitution method to evaluate \\
+\\
+$ \displaystyle \int f(g(x)) \ g'(x) \ dx $ by putting $ u = g(x) $ and $ du = g'(x) \ dx $ we get $ \displaystyle \int f(u) \ du $ \\
+\\
+Using the substitution of \\
+\\
+$ u = x^\beta $ and so also $ x = u^{\frac{1}{\beta}} $ \\
+\\
+and therefore \\
+\\
+$ du = \beta x^{ \beta - 1 } \ dx $ \\
+\\
+Checking the limits of integration, when $ x = 0 $ we have $ u = 0 $ and when $ x = \infty $ we have $ u = \infty $ \\
+\\
+$ E(X^r) = \displaystyle \int_{ x = a }^b x^r \beta x^{\beta - 1} e^{-x^\beta} \ dx $ \\
+\\\\
+$ E(X^r) = \displaystyle \int_{ x = a }^b x^r e^{-x^\beta} \beta x^{\beta - 1} \ dx $ \\
+\\
+$ E(X^r) = \displaystyle \int_{u = 0}^{\infty} u^{\frac{r}{\beta}} e^{-u} \ du $ \\
+\\
+Which can be written as \\
+\\
+$ E(X^r) = \displaystyle \int_{u = 0}^{\infty} u^{(\frac{r}{\beta} + 1) - 1} e^{-u} \ du $ \\
+\\\\
+Therefore after comparing with the Gamma function $ \Gamma(n) $, we get \\
+\\
+$ E(X^r) = \Gamma( \frac{r}{\beta} + 1) $ \\
+\\
+
+
+\subsection*{2.b}
+
+By definition $ V(X) = E(X^2) - E(X)^2 $ \\
+\\
+find $ V(X) $ for $ Weibull(\beta) $ where $ \beta = \frac{1}{2} $ \\
+\\
+Using the result of part a \\
+\\
+$ E(X^2) = \Gamma(\frac{2}{\beta} + 1) $ \\
+\\
+$ E(X)^2 = (\Gamma(\frac{1}{\beta} + 1))^2 $ \\
+\\
+$ V(X) = \Gamma(\frac{2}{\beta} + 1) - (\Gamma(\frac{1}{\beta} + 1))^2 $ \\
+\\
+$ V(X) = \Gamma(\frac{2}{\frac{1}{2}} + 1) - (\Gamma(\frac{1}{\frac{1}{2}} + 1))^2 $ \\
+\\
+$ V(X) = \Gamma(5) - \Gamma(3)^2 $ \\
+\\
+Using $ \Gamma(x) = (x-1)! $ for $ x > 0 $, integer $ x \in \mathbb{N} $ \\
+\\
+$ V(X) = 4! - 2!^2 $ \\
+\\
+$ V(X) = 24 - 4 $ \\
+\\
+Therefore \\
+\\
+$ V(X) = 20 $ \\
+
+\break 
+
+
+\section*{Question 3}
+
+\subsection*{3.a}
+% int[ ((a * y^2)/(sqrt(2 * pi))) * e^(-((1/2)+ (a * x)) * y^2)] dy
+Given the bivariate distribution (X, Y) defined as \\
+\\
+$ f(x, y) = \frac{\lambda y^2}{\sqrt { 2 \pi } } e^{-( \frac{1}{2} + \lambda x) y^2 } $ on $ x > 0, y \in \mathbb{R} $  \\
+\\
+show the marginal distribution $f_X$ is given by \\
+\\
+$ f_X(x) = \frac{\lambda}{2 \sqrt{2} (\frac{1}{2} + \lambda x)^{\frac{3}{2}} } $ \\
+\\\\
+By definition, the marginal distribution $ f_X(x) $ is given by \\
+\\
+$ f_X(x) = \displaystyle \int_{A_y} f(x, y) \ dy $ \\
+\\
+So we have \\
+\\
+$ f_X(x) = \displaystyle \int_{y = - \infty}^{y = \infty} f(x, y) \ dy $ \\
+\\\\
+$ f_X(x) = 2 \displaystyle \int_{y = 0}^{y = \infty} f(x, y) \ dy $ ; since $ f(x, y) $ is symmetric about $ y = 0 $ on the term $ y^2 $ \\
+\\
+Using the integration by substitution method to evaluate \\
+\\
+$ \displaystyle \int f(g(x)) \ g'(x) \ dx $ by putting $ u = g(x) $ and $ du = g'(x) \ dx $ we get $ \displaystyle \int f(u) \ du $ \\
+\\
+Using the substitution of \\
+\\
+$ u = g(y) = (\frac{1}{2} + \lambda x ) y^2 $ \\
+\\
+$ du = g'(y) \ dy $ \\
+\\
+$ du = 2(\frac{1}{2} + \lambda x) y \ dy $ \\
+\\
+Checking the limits of integration, when $ y = 0 $ we have $ u = 0 $ and when $ y = \infty $ we have $ u = \infty $ \\
+\\
+Taking out the constant terms from the integral (terms not on y) \\
+\\
+$ \frac{ 2 \lambda }{ \sqrt { 2 \pi } } \displaystyle \int_{0}^{\infty} y^2 e^{ -(\frac{1}{2} + \lambda x) y^2 } dy $ \\
+\\\\
+$ \frac{ 2 \lambda }{ \sqrt { 2 \pi } } \displaystyle \int_{0}^{\infty} \frac{ y^2 }{ 2(\frac{1}{2} + \lambda x) y } e^{ -(\frac{1}{2} + \lambda x) y^2 } \ ( 2(\frac{1}{2} + \lambda x) y ) \ dy $ \\
+\\\\
+extracting constant terms from the integral \\
+\\
+$ \frac{ \lambda }{ \sqrt { 2 \pi } (\frac{1}{2} + \lambda x) } \displaystyle \int_{0}^{\infty} \frac{ y^2 }{ y } e^{ -(\frac{1}{2} + \lambda x) y^2 } \ ( 2(\frac{1}{2} + \lambda x) y ) \ dy $ \\
+\\\\
+Substituting $ u $ for $ g(y) $ and $ du $ for $ g'(y) \ dy $ \\
+\\
+$ \frac{ \lambda }{ \sqrt { 2 \pi } (\frac{1}{2} + \lambda x) } \displaystyle \int_{0}^{\infty} y \ e^{-u} \ du $ \\
+\\\\
+Rearranging u for y, we get \\
+\\
+$ y = \sqrt { \frac{u}{\frac{1}{2} + \lambda x} } $ \\
+\\
+and replacing y for an expression of u, we get \\
+\\
+$ \frac{ \lambda }{ \sqrt { 2 \pi } (\frac{1}{2} + \lambda x) } \displaystyle \int_{0}^{\infty} \sqrt { \frac{u}{\frac{1}{2} + \lambda x} } \ e^{ -u } \ du $ \\
+\\\\
+and after extracting constant terms from the integral (note x is constant) \\
+\\
+$ \frac{ \lambda }{ \sqrt { 2 \pi } (\frac{1}{2} + \lambda x) \sqrt{ \frac{1}{2} + \lambda x} } \displaystyle \int_{0}^{\infty} \sqrt { u } \ e^{ -u } \ du $ \\
+\\\\
+After collecting terms, so far we now have \\
+\\
+$ f_X(x) = \frac{ \lambda }{ \sqrt { 2 \pi } (\frac{1}{2} + \lambda x)^{\frac{3}{2}} } \displaystyle \int_{0}^{\infty} \sqrt { u } \ e^{ -u } \ du $ \\
+\\\\
+Now looking at the integral term, we can make use of the Gamma Function \\
+\\
+$ \displaystyle \int_{0}^{\infty} u^{\frac{1}{2}} \ e^{ -u } \ du $ \\
+\\
+The Gamma function is defined as: \\
+\\
+$ \Gamma(a) = x^{a-1} \ e^{-x} \ dx $ \\
+\\
+So the integral we have is equivalent to $ \Gamma(\frac{3}{2}) $ \\
+\\
+Evaluating using $ \Gamma(a + 1) = a \Gamma(a) $ \\
+\\
+and also that $ \Gamma(\frac{1}{2}) = \sqrt{\pi} $ \\
+\\
+Then $ \Gamma(\frac{3}{2}) = \frac{1}{2} \Gamma(\frac{1}{2}) = \frac{1}{2} \sqrt{\pi} $ \\
+\\
+So, recombining with the whole expression, we have: \\
+\\
+$ f_X(x) = \frac{ \lambda }{ \sqrt { 2 \pi } (\frac{1}{2} + \lambda x) ^{\frac{3}{2}} } \frac{1}{2} \sqrt{\pi} $ \\
+\\\\
+$ f_X(x) = \frac{ \lambda }{ 2 \sqrt { 2 } \sqrt { \pi } (\frac{1}{2} + \lambda x)^{\frac{3}{2}} } \sqrt{\pi} $ \\
+\\\\
+Therefore giving \\
+\\
+$ f_X(x) = \frac{ \lambda }{ 2 \sqrt { 2 } (\frac{1}{2} + \lambda x)^{\frac{3}{2}} } $ as required. \\
+\\
+
+
+\break
+
+\subsection*{3.b}
+
+The conditional density of $ Y | X $ is defined as $ f_{Y | X } (y | x) = \frac{f(x, y)}{f_X(x)} $ provided $ f_X(x) > 0 $ \\
+\\
+$ \frac { \frac{\lambda y^2}{\sqrt{2 \pi} } e^{-( \frac{1}{2} + \lambda x ) y^2 ) } } { \frac{\lambda}{2 \sqrt{2} (\frac{1}{2} + \lambda x)^{\frac{3}{2}} } } $ \\
+\\\\
+$  \frac{\lambda y^2 }{ \sqrt{2 \pi} } \frac{ 2 \sqrt{2} (\frac{1}{2} + \lambda x)^{\frac{3}{2}} } {\lambda}  e^{-( \frac{1}{2} + \lambda x ) y^2  } $ \\
+\\\\
+$  \frac{ y^2 2 \sqrt{2} }{ \sqrt{\pi} \sqrt{2} } (\frac{1}{2} + \lambda x)^{\frac{3}{2}}  e^{-( \frac{1}{2} + \lambda x ) y^2 } $ \\
+\\\
+$ \frac { 2 y^{2} (\frac{1}{2} + \lambda x)^{\frac{3}{2}} } { \sqrt{ \pi } }  e^{ -(\frac{1}{2} + \lambda x ) y^2 } $ \\
+\\
+% $ \frac { 2 y^{2} (\lambda x + \frac{1}{2})^{\frac{3}{2}} e^{-( \frac{1}{2} + \lambda x ) y^2 } } { \sqrt{ \pi } } $ \\
+% \\
+Grouping constant (those that do not depend on y) and variable terms (those that depend on y), since y is variable and x is constant \\
+\\
+$ ( \frac { ( \frac{1}{2} + \lambda x )^{\frac{3}{2}} }{ \sqrt{ \pi } } ) ( 2 y^{2} e^{-( \frac{1}{2} + \lambda x )y^2 } ) $ \\
+\\
+where \\
+\\
+$ 2 y^{2} e^{ - ( \frac{1}{2} + \lambda x ) y^2 } $ is the density core, depending on the variable y and \\
+\\
+$ \frac { ( \frac{1}{2} + \lambda x )^{\frac{3}{2}} }{ \sqrt{ \pi } } $ is a constant term depending only on x (x is constant) \\
+\\
+
+
+\subsection*{3.c}
+
+Given the Marginal distribution of $ Y : f_Y(y) $ and the Conditional distribution $ f_{X | Y = y}(x | y) $ \\
+\\
+We can use the alternative forms of Bayes's theorem to express the conditional $ f_{Y | X} (y|x) $ \\
+\\
+$ f_{Y | X} (y | x) \propto f_{X | Y} (x | y) f_Y (y) $ \\
+\\
+This allows us to express the conditional density $ f_{Y | X} $ from the marginal $ f_Y $ and conditional $ f_{X | Y} $ \\
+\\ 
+(Since we only require the density \emph{core}, we can omit the calculation of the scaling factor constant here, which would be needed to turn the core into a PDF). \\
+\\
+
+
+\end{document}  
+% END DOCUMENT  % (end)
+% ----------------------------------------------------------------------

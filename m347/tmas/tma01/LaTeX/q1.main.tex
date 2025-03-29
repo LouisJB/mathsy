@@ -1,0 +1,88 @@
+\documentclass[11pt]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{a4paper, margin=1in}                % ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for for rotated page geometry
+
+%\usepackage{enumitem}
+%\parskip = \baselineskip
+%\setlength{\parskip}{5pt}
+%\setlength{\parindent}{0pt}
+%\usepackage[parfill]{parskip}    			% Activate to begin paragraphs with an empty line rather than an indent
+
+%\usepackage{enumitem}
+
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+
+% \usepackage{amsfonts}								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+% \usepackage{amsmath}
+
+\usepackage{hyperref}
+
+%\usepackage[nopar]{lipsum}
+%\setlength\parindent{0pt}			% globally suppress indentation
+
+%\usepackage{fancyvrb}
+
+\newenvironment{monoblock}%
+  {\ttfamily \small}%
+  {}
+  
+\newenvironment{tight_enumerate}{
+\begin{enumerate}
+  \setlength{\itemsep}{0pt}
+  \setlength{\parskip}{0pt}
+}{\end{enumerate}}
+  
+%\usepackage{listings}
+%\lstset{ %
+%language=C++,           % choose the language of the code
+%numbers=left,           % where to put the line-numbers
+%numberstyle=\tiny,      % the size of the fonts that are used for the line-numbers
+%basicstyle=\footnotesize    % the size of the fonts that are used for the line-numbers
+%}
+
+%\makeatletter
+%\def\@xobeysp{\mbox{}\space}
+%\def\verbatim@font{\normalfont\ttfamily}
+%\makeatother
+  
+%\usepackage{verbatim}% http://ctan.org/pkg/verbatim
+%\newenvironment{myverbatim}%
+%  {\endgraf\small\verbatim}%
+%  {\endverbatim}
+    
+\newenvironment{boxed}
+    {\begin{center}
+    \begin{tabular}{|p{0.9\textwidth}|}
+    \hline\\
+    }
+    { 
+    \\\\\hline
+    \end{tabular} 
+    \end{center}
+    }
+ 
+\title{Example question}
+\author{Louis Botterill}
+\date{03-11-2017}					% Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+
+\pagebreak
+
+
+\section*{Question}
+
+Given the bivariate distribution (X, Y) defined as \\
+\\
+$ f(x, y) = \frac{\lambda y^2}{\sqrt { 2 \pi } } e^{-( \frac{1}{2} + \lambda x) y^2 } $ on $ x > 0, y \in \mathbb{R} $  \\
+\\
+show the marginal distribution $f_X$ is given by \\
+\\
+$ f_X(x) = \frac{\lambda}{2 \sqrt{2} (\frac{1}{2} + \lambda x)^{\frac{3}{2}} } $ \\
+
+\end{document}  
+% END DOCUMENT  % (end)
+% ----------------------------------------------------------------------
