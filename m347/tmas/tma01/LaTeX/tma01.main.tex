@@ -82,7 +82,19 @@ $ M_Y(t) = E\left[ e^{tY} \right] $ \\
 \\
 $ M_Y(t) = E\left[ e^{t(aX + b)} \right] $ \\
 \\
-$ M_Y(t) = e^{tb} E\left[ e^{atX} \right] $ \\
+Separating terms, we can rewrite this as \\
+\\
+$ M_Y(t) = E\left[ e^{bt}e^{atX} \right] $ \\
+\\
+and then, using the general fact that for any constant a and random variable Z \\
+\\
+$ E\left[aZ\right] = aE\left[Z\right] $ \\
+\\
+We therefore obtain \\
+\\
+$ M_Y(t) = e^{bt} E\left[ e^{(at)X} \right] $ \\
+\\
+Which by definition of X, is equivalent to \\
 \\
 $ M_Y(t) = e^{bt} M_X(at) $ \\
 
