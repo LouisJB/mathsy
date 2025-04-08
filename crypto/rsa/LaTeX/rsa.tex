@@ -47,7 +47,7 @@
 
 \subsection*{1.1 Introduction}
 
-Nothing in this document is secret and it is all readily available in the public domain. The aim of this document is to consolidate it into one place in an easily digestible form, for beginners or as a refresher for those who already know of it. \\
+Nothing in this document is secret and it is all readily available in the public domain. The aim of this document is to consolidate it into one place in an easily digestible form, for beginners or as a refresher for those who are already familiar with it. \\
 \\
 RSA is a public (asymmetric) key cryptographic system. Let's see what that means and how it works.
 Firstly, some background. There are two main types of cryptographic systems, these are symmetric and asymmetric (also known as public key) cryptography. \\
@@ -55,18 +55,18 @@ Firstly, some background. There are two main types of cryptographic systems, the
 \textbf{Symmetric} - uses one private key. Encryption and decryption are inverses, using the same privately shared key for both.
 \begin{itemize}
  \item Advantages - speed and efficiency. Smaller keys for same cryptographic strength.
- \item Disadvantages - distribution of these private keys, without risk of compromising them.
+ \item Disadvantages - difficulty in distributing the private keys, without risk of compromising them.
 \end{itemize}
 
-\textbf{Asymmetric} - there are two keys, a public and a private key, mathematically related as a pair. Anyone may know the public key, but the private is kept secret.
+\textbf{Asymmetric} - there are two keys, a public and a private key, mathematically related as a pair. Anyone may obtain the public key, but the private must be kept secret.
 \begin{itemize}
- \item Advantages - key distribution is vastly simplified.
+ \item Advantages - key distribution is vastly simplified. Keys do not need to be distributed to both parties.
  \item Disadvantage - generally slower, computationally more expensive. Larger keys for same cryptographic strength.
 \end{itemize}
 
-For the purposes of describing the process of sending secure messages from a to b, we'll introduce the standard parlance, Alice and Bob. Alice is the sender and Bob is the recipient. Since we're discussing RSA here, which is a public asymmetric system, Bob will have a key pair, private and public. Only Bob will know his private key, but his corresponding public key is shared and Alice will know it and use it to send secure messages to Bob (that only Bob can decrypt). Because the private and public keys are related they form a secure encrypt-decrypt process together and are generated at the same time from common parameters. How this is done will be worked through in following sections. \\
+For the purposes of describing the process of sending secure messages from a to b, we'll introduce the standard parlance, Alice and Bob. Alice is the sender and Bob is the recipient. Since we're discussing RSA here, which is a public asymmetric system, Bob will have a key pair, private and public. Only Bob will know his private key, but his corresponding public key is shared and Alice will know it and use it to send secure messages to Bob (that only Bob can decrypt). Because the private and public keys are related they form a secure encrypt-decrypt process together and are generated at the same time from common parameters. How exactly this is done will be worked through in following sections. \\
 \\
-This document will help take you through the definitions and background mathematics and how it is used in RSA asymmetric public key cryptography. Further reading may be necessary but the aim is to have this relatively self contained in a single document for beginners, hopefully without being either too high or low-level.
+This document will help take you through the necessary definitions, background mathematics and how it is used in RSA asymmetric public key cryptography. Further reading may be necessary but the aim is to have this relatively self contained in a single document intended for beginners, hopefully without being either too high or low-level.
 
 
 \section*{1.2 RSA}
@@ -106,18 +106,18 @@ To Encrypt a plain text message m for Bob, Alice requires Bob's public key (e, n
 \\
 $ c = m^e \ mod \ n $ \\
 \\
-where c is the encrypted cypher text and n is the public modulus, e the public exponent.
+where c is the encrypted ciphertext and n is the public modulus, e the public exponent.
 \\
-The cipher text c can now be transmitted safely in private to the recipient over a public network. Only the intended recipient with the corresponding private key d can decrypt c back to m. \\
+The ciphertext c can now be transmitted safely in private from Alice to the recipient Bob over a public network. Only the intended recipient with the corresponding private key d can decrypt c back to m. Anyone else obtaining the ciphertext should not be able to decrypt it (easily, in theory). \\
 \\
 \textbf{To decrypt} \\
 \\
-To decrypt the cipher c of message m for Bob from Alice, this requires Bob's private key (d, n) \\
+To decrypt the ciphertext c of message m for Bob from Alice, this requires Bob's (matching) private key (d, n) \\
 \\
 $ m = c^d = (m^e)^d = m^{ed} \ (mod \ n) = m$ (the original message) by (1) \\
 
-
 \break 
+
 
 \textbf{Summary} \\
 \\
@@ -149,7 +149,7 @@ i.e. \\
 \\
 $ ed \equiv 1 \  mod \ \phi(n) $ \\
 \\
-See section 2.7 for more detail of how this actually works in more detail \\
+See section 2.7 for further explanation of how this actually works in more precise detail. \\
 \\
 
 \break 
@@ -157,19 +157,19 @@ See section 2.7 for more detail of how this actually works in more detail \\
 
 \section*{2 Mathematical building blocks}
 
-The following subsections break down some of the relevant and key mathematical concepts nd building blocks.
+The following subsections break down some of the relevant key mathematical concepts and building blocks.
 
 \subsection*{2.1 Prime numbers}
 
 Most likely you know all about prime numbers, but as this is a beginners guide, let's briefly recap. \\
 \\
-Prime numbers are the numbers that have only 2 factors, 1 and themselves. In other words they are \textbf{only} divisible by 1 and themselves (note - as are all numbers, but for primes these are the only factors) - therefore they contain no other factors, thus they are further indivisible. To really qualify this we should note we're speaking of positive integers here, not real numbers and so on. \\
+Prime numbers are the numbers that have only 2 factors, 1 and themselves. In other words they are \textbf{only} divisible by 1 and themselves (note - as are all numbers, but for primes these are the only factors). Therefore they contain no other factors, thus they are further indivisible. To really qualify this we should note we're speaking of positive integers here, not real numbers and so on. \\
 \\
 The fundamental theorem of arithmetic (also known as the unique factorization theorem), states that every integer greater than 1 can be uniquely represented as a product of prime numbers. For some $ n > 1 $, where can express n as follows \\
 \\
 $ n = p_0^{e_0} \ p_1^{e_1} \ ... \ p_k^{e_k} $ \\
 \\
-where the prime factorization is unique. That is to say every integer greater than 1 has a unique prime factorisation.
+where the prime factorization is unique. That is to say every integer greater than 1 has a unique prime factorization. Thus all integers have a unique representation as a decomposition of primes.
 
 
 \subsection*{2.2 Modular arithmetic and congruence}
@@ -190,7 +190,7 @@ $ 5 \equiv 8 \equiv 2 \ mod \ 3 $ \\
 \\
 e.g. \\
 \\
-$ 5 - 3 = 2 $ and $ 8 - 2x3 = 8 - 6 = 2 $
+$ 5 - 3 = 2 $ and $ 8 - 2x3 = 8 - 6 = 2 $, thus both 5 and 8 are congruent to 2 mod 3 \\
 
 
 \subsection*{2.3 co-primes and gcd}
@@ -247,9 +247,9 @@ incidentally, the cototient of n is defined as $ n - \phi(n) $ i.e. the number o
 
 $ a^{\phi(n)} \equiv 1 \ mod \ n $ \\
 \\
-note here we're extending Fermat's little theorem to any $ \phi(n) $ of the modulus n \\
+note here we're extending Fermat's little theorem to $ \phi(n) $ of the modulus n \\
 \\
-Furthermore whilst it would be hard to calculate $ \phi(n) $ for large arbitrary n, because we created it from two large (secret) primes, we can calculate it trivially.
+Furthermore whilst it would be hard to calculate $ \phi(n) $ for large arbitrary n, because we created it from two large (secret) primes, we can calculate it trivially as explained earlier.
 
 
 \subsection*{2.7 RSA mathematics using these building blocks}
@@ -274,21 +274,22 @@ $ m^{ed} = m^{k\phi(n) + 1} = m . m^{k \phi(n)} = 1.m \ (mod \ n) = m \ (mod \ n
 \\
 Another important aspect of this is that $ \phi(n) $ is hard to calculate from n (unless you know the prime factors of n). This is why n is calculated as the product of 2 large prime numbers. \\
 \\
-If we did know or were about to calculate $ phi(n) $ easily then we could easily compute d the private key \\
+If we did know or were able to easily calculate $ phi(n) $ then we could easily compute d the private key \\
 \\
-$ d = (\phi(n) + 1) / e $ where everything on the right is publicly know, so d would be easily compromised from publically available data \\
+$ d = (\phi(n) + 1) / e $ where everything on the right hand side is publicly available, so d would be easily compromised from publically available data. \\
 \\
 To ensure this is not the case, n is calculated from the product of 2 large primes, p and q. This means if you know the primes, it is easy to calculate $ \phi(n) = (p-1)(q-1) $, however if you don't (and these should not be shared) then it is very hard to find them (factorizing for large n and/or find $ \phi(n) $ by any other means, is hard. \\
 Thus this is an important part of making RSA public key cryptography secure against compromises. 
 
 \break
 
+
 \section*{3 Summary}
 
-In this short document we have seen how the popular public key (asymmetric) cryptographic system known as RSA can be used and how it works, using the simple mathematical concepts and building blocks. Key building blocks of modular arithmetic, prime numbers, Fermat's Little Theorem (FLT) and Euler's Generalization of FLT have been introduced along the way to provide the mathematical mechanisms by which this system works.
-
+In this short document we have seen how the popular public key (asymmetric) cryptographic system known as RSA can be used and how it works, using the simple mathematical concepts and building blocks. Key building blocks of modular arithmetic, prime numbers, Fermat's Little Theorem (FLT) and Euler's Generalization of FLT have been introduced along the way to provide an understanding of the mathematical mechanisms by which this system works.
 
 \break
+
 
 \section*{Further reading}
 
@@ -310,10 +311,14 @@ ITU \\
 \\
 Stanford \\
 \\
-\url{https://crypto.stanford.edu/~dabo/cryptobook/draft_0_3.pdf}
-
+\url{https://crypto.stanford.edu/~dabo/cryptobook/draft_0_3.pdf} \\
+\\
+NIST Special Publication 800-175B \\
+\\
+\url{https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-175Br1.pdf}
 
 \break
+
 
 \section*{Glossary}
 
@@ -347,8 +352,8 @@ Relatively prime - see coprime \\
 \\
 Totient - for n, it is the number of coprimes from 1 to n \\
 
-
 \break
+
 
 \section*{Recommended further resources}
 
