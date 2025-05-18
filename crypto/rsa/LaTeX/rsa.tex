@@ -89,11 +89,11 @@ e.d - the product of two integers, with a relation to Euler totient function whi
 To set this up, we need to choose \\
 \\
 e - a public exponent, typically a fixed known value - most commonly this is $ 2^{16} + 1 = 65537 $ \\
-d - private value found such that $ e.d $ satisfy particular criteria to be explained below \\
-n - a modulus made from the product of two large primes, p and q (where p != q) \\
+d - private value found such that $ e.d $ satisfy particular criteria to be explained later \\
+n - a modulus made from the product of two large unique primes, p and q (where p != q) \\
 \\
 Both e and n are components of the public key, which are published and shared. \\
-A sender wishing to send a secret message m to a recipient encrypts it for that recipient using their (e, n) public key. \\
+A sender Alice wishing to send a secret message m to a recipient Bob, encrypts it for that recipient using their (e, n) public key. \\
 The recipient has the corresponding private key (d, n) to decrypt and recover m. \\
 \\
 This may (or may not) seem simple enough, to help understand how this works and is used this document will run through the relevant parts and supporting mathematics from the ground up. \\
@@ -112,7 +112,7 @@ The ciphertext c can now be transmitted safely in private from Alice to the reci
 \\
 \textbf{To decrypt} \\
 \\
-To decrypt the ciphertext c of message m for Bob from Alice, this requires Bob's (matching) private key (d, n) \\
+To decrypt the ciphertext c of message m for Bob from Alice, this requires Bob's (matching) private key (d, n) which of course only Bob should know. Then Bob performs the following: \\
 \\
 $ m = c^d = (m^e)^d = m^{ed} \ (mod \ n) = m$ (the original message) by (1) \\
 
@@ -121,7 +121,7 @@ $ m = c^d = (m^e)^d = m^{ed} \ (mod \ n) = m$ (the original message) by (1) \\
 
 \textbf{Summary} \\
 \\
-we choose n = pq where p and q are very large primes \\
+We choose the public modulus n = p.q where p and q are very large primes \\
 and e is selected as a fixed public 'exponent' \\
 \\
 \textbf{Public Key - (e, n)} \\
@@ -143,7 +143,7 @@ and e is a preselected exponent such as 65537 (a common value) \\
 \\
 The exact details do mater for this to work, e and d are carefully selected such that \\
 \\
-$ ed = k\phi(n) + 1 $ - where k is insignificant here \\
+$ ed = k\phi(n) + 1 $ (where k is relatively insignificant here) \\
 \\
 i.e. \\
 \\
@@ -163,7 +163,7 @@ The following subsections break down some of the relevant key mathematical conce
 
 Most likely you know all about prime numbers, but as this is a beginners guide, let's briefly recap. \\
 \\
-Prime numbers are the natural numbers that have only 2 factors, 1 and themselves. In other words they are \textbf{only} divisible by 1 and themselves (note - as are all numbers, but for primes these are the only factors). Therefore they contain no other factors, thus they are further indivisible. To really qualify this we should note we're speaking of natural numbers, the positive integers here, not real numbers and so on. \\
+Prime numbers are the natural numbers that have only 2 factors, 1 and themselves. In other words they are \textbf{only} divisible by 1 and themselves (note - as are all numbers, but for primes these are the \textit{only} factors). Therefore they contain no other factors, thus they are further indivisible. To really qualify this we should note we're speaking of natural numbers, the positive integers here, not real numbers and so on. \\
 \\
 Prime factoriztion: \\
 \\
@@ -190,16 +190,18 @@ This would be written in mathematical notation as \\
 \\
 $ 5 \equiv 8 \equiv 2 \ mod \ 3 $ \\
 \\
+where $ \equiv $ is the symbol for congruence in modular arithmetic. \\
+\\
 e.g. \\
 \\
 $ 5 - 3 = 2 $ and $ 8 - 2x3 = 8 - 6 = 2 $, thus both 5 and 8 are congruent to 2 mod 3 \\
 
 
-\subsection*{2.3 co-primes and gcd}
+\subsection*{2.3 Co-Primes and GCD}
 
 The Greatest Common Divisor (GCD), of two or more non-zero integers, is the largest positive integer that divides both of the integers. GCD is also known as also known as Greatest Common Factor (GCF) or Highest Common Factor (HCF) \\
 \\
-We write g = gcd(a, b) where gcd is the greatest common divisor \\
+We write g = gcd(a, b) where gcd is the greatest common divisor function (a binary function of two integers) \\
 \\
 Two integers are coprime (also called relatively prime or mutually prime) if their greatest common divisor (GCD) is 1. \\
 \\
@@ -219,14 +221,14 @@ a useful alternative formulation of this is \\
 \\
 $ a^{p-1} \equiv 1 \ mod \ n $ \\
 \\
-In either form, this is an important result, in general and for public key cryptography, such as in RSA.
+In either form, this is an important mathematical result, in general and for public key cryptography, such as in RSA.
 
 
 \subsection*{2.5 Euler's Totient function}
 
-Euler totient function for n counts the number of coprimes from 1 to n \\
+Euler totient function for n counts the number of coprimes from 1 to n. \\
 \\
-given some n has a prime factorization \\
+given some n has a prime factorization, say \\
 \\
 $ n = p_0^{e_0} \ p_1^{e_1} \ ... \ p_k^{e_k} $ \\
 \\
@@ -242,9 +244,11 @@ Relevant to RSA, when n is a product of 2 (unique) primes, p and q, we have \\
 \\
 $ \phi(n) = \phi(p)\phi(q) = (p-1)(q-1) $ (which we note, is trivial to compute given we know the only prime factors of n which are p and q) \\
 \\
-This fact is taken advantage of to make a large number n with an easily known $ \phi(n) $
+Note here this works because the totient function is a multiplicative function \\
 \\
-incidentally, the cototient of n is defined as $ n - \phi(n) $ i.e. the number of factors of n \\
+This fact is taken advantage of to make a large number n with an easily known $ \phi(n) $ \\
+\\
+Incidentally, the cototient of n is defined as $ n - \phi(n) $ i.e. the number of factors of n.
 
 
 \subsection*{2.6 Euler’s generalization of Fermat’s Little Theorem}
@@ -266,7 +270,7 @@ $ ed = \phi(n) + 1 $ \\
 \\
 or more generally \\
 \\
-$ ed = k\phi(n) + 1 $ - where k is insignificant here \\
+$ ed = k\phi(n) + 1 $ (where k is relatively insignificant here) \\
 \\
 i.e. \\
 \\
@@ -278,22 +282,40 @@ $ m^{k \phi(n)} = m^{\phi(n)} . m^{\phi(n)} · . . . · m^{\phi(n)} = 1 \ (mod \
 \\
 $ m^{ed} = m^{k\phi(n) + 1} = m . m^{k \phi(n)} = 1.m \ (mod \ n) = m \ (mod \ n) $ \\
 \\
-Another important aspect of this is that $ \phi(n) $ is hard to calculate from n (unless you know the prime factors of n). This is why n is calculated as the product of 2 large unique prime numbers. \\
+Another important aspect of this is that $ \phi(n) $ is generally hard to calculate for (large) n (unless you know the prime factors of n). This is why n is calculated as the product of 2 large unique prime numbers. \\
 \\
-If we did know or were able to easily calculate $ \phi(n) $ then we could easily compute d the private key \\
+If we did know, or were able to easily calculate (or guess), $ \phi(n) $ then we could trivially compute d the private key and the whole cryptographic system would be compromised. \\
 \\
-$ d = (\phi(n) + 1) / e $ where everything on the right hand side is publicly available, so d would be easily obtained and compromised purely from publically available data. \\
+$ d = (\phi(n) + 1) / e $ where everything on the right hand side is publicly available, so d would be easily obtained and compromised purely from publicly available data. \\
 \\
 To ensure this is not the case, n is calculated from the product of 2 large primes, p and q. This means if you know the primes, it is easy to calculate $ \phi(n) = (p-1)(q-1) $, however if you don't (and these should not be shared) then it is very hard to find them (factorizing for large n and/or find $ \phi(n) $ by any other means, is difficult. \\
 \\
-Thus this is a vitally important part of making RSA public key cryptography secure against compromises.
+Thus this is a vitally important part of making RSA public key cryptography secure against compromises. \\
+\\
+Another important consideration is the authenticity of Bob's public key. It must be trustworthy and genuine for the system to work. Typically this is achieved by obtaining the public keys from a trusted published source.To prove authenticity other cryptographic mechanisms are employed, such as signatures and certificates. \\
+\\
+Typically this is called PKI (public key infrastructure). Namely, some trusted certification authority issues a (digital) certificate confirming that the public key belongs to a particular person. This authority is verified and trustworthy. \\
+\\
+Alternative mechanisms exist, for example the key may be shared directly in person. Or by other secure channels, even by secure symmetric cryptographic channels.
+\\
+If we consider the potential thread if the public key is not genuine, we can consider Eve, e a malicious eavesdropper who has spoofed a public key for Bob. Alice believes this to be Bob's public key and uses it to encrypt a secure message for Bob. Alas if Bob ever receives, he finds he cannot decrypt it, becasue it was made using a fake public key. The author of that fake key, Eve however, finds it trivial to decrypt the message intended for Bob and thus the system is totally compromised. \\
+\\
+The reader may with to follow up on this aspect with further reading.  We won't get into that here but there might be a follow up document on this topic in the future.
 
 \break
 
 
 \section*{3 Summary}
 
-In this short document we have seen how the popular public key (asymmetric) cryptographic system known as RSA can be used and how it works, using the simple mathematical concepts and building blocks. Key building blocks of modular arithmetic, prime numbers, Fermat's Little Theorem (FLT) and Euler's Generalization of FLT have been introduced along the way to provide an understanding of the mathematical mechanisms by which this system works.
+In this short document we have seen how the popular public key (asymmetric) cryptographic system known as RSA can be used and how it works, using relatively simple mathematical building blocks and concepts. \\
+\\
+The key building blocks of modular arithmetic, prime numbers, Fermat's Little Theorem (FLT) and Euler's Generalization of FLT have been introduced along the way to provide an understanding of the mathematical mechanisms by which this system works. \\
+\\
+Whilst there is more to know in this area generally, such as the use of PKI, hopefully this document has illustrated how RSA works, mathematically (and practically) from the ground up. \\
+\\
+Any comments, issues, mistakes, anomalies or omissions in this document, feel free to let the author know for correction - since it is hosted in the public domain in GitHub, a GitHub Issue is suitable for providing the feedback. \\
+\\
+Source location of the document: \url{https://github.com/LouisJB/mathsy/blob/main/crypto/rsa/LaTeX/rsa.pdf} - please check here the latest revisions.
 
 \break
 
@@ -352,6 +374,8 @@ Modular arithmetic - wrap-around integers from 0 to $ n - 1 $ \\
 Mutually prime - see coprime \\
 \\
 Natural numbers - positive integers - e.g. 1, 2, 3, 4, .. n \\
+\\
+PKI - public key infrastructure. The system and services used to share trusted, authenticated public keys. \\
 \\
 Prime factorization - reduction to the unique factors of any number \\
 \\
