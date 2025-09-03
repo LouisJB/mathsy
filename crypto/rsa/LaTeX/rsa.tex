@@ -34,12 +34,26 @@
     \end{center}
     }
  
-\title{RSA for beginners - version 0.1}
+\title{RSA for beginners - version 0.2}
 \author{Louis Botterill}
 \date{2025-04-04}					% Activate to display a given date or no date
 
 \begin{document}
 \maketitle
+\
+\begin{center}
+Updates \\
+\
+
+\end{center} 
+
+\begin{center}
+\parbox{8cm}{
+V0.2 | LJB | 2025-09-01 | Further updates \\
+V0.1 | LJB | 2025-04-04 | Initial version  \\
+\\
+}
+\end{center}
 
 \pagebreak
 
@@ -47,10 +61,13 @@
 
 \subsection*{1.1 Introduction}
 
-Nothing in this document is secret and it is all readily available in the public domain. The aim of this document is to consolidate it into one place in an easily digestible form, for beginners or as a refresher for those who are already familiar with it. \\
+This document serves as an introduction to RSA cryptography and the essential underlying mathematics that it is based on. It is intended to be relatively concise yet self-contained, assuming the reader has a basic understanding of certain fundamental mathematical concepts. The glossary and resource sections at the end of this document may provide useful further reading or help bridge any gaps in prerequisite knowledge. \\
 \\
-RSA is a public (asymmetric) key cryptographic system. Let's see what that means generally and then how it works.
-Firstly, some background. There are two main types of cryptographic systems, these are symmetric and asymmetric (also known as public key) cryptography. \\
+All information presented in this document is publicly available and not confidential. The goal of this document is to bring together key concepts in a clear, easily accessible  and digestible format, making it suitable for beginners or as a refresher for those already familiar with the topic. \\
+\\
+RSA is a type of public key (asymmetric) cryptographic system. To understand what this means, we will first look at the general concepts of cryptography, then explore how RSA works, including in particular, the mathematical principles behind it. \\
+\\
+Cryptographic systems are generally divided into two main categories: symmetric cryptography and asymmetric cryptography (also known as public key cryptography). \\
 \\
 \textbf{Symmetric} - uses one private key. Encryption and decryption are inverses, using the same privately shared key for both.
 \begin{itemize}
@@ -64,7 +81,7 @@ Firstly, some background. There are two main types of cryptographic systems, the
  \item Disadvantage - generally slower, computationally more expensive. Larger keys for same cryptographic strength.
 \end{itemize}
 
-For the purposes of describing the process of sending secure messages from a to b, we'll introduce the standard parlance, Alice and Bob. Alice (a) is the sender and Bob (b) is the recipient. Since we're discussing RSA here, which is a public asymmetric system, Bob will have a related key pair, a private and public key. Only Bob will know his private key, but his corresponding public key is shared. Alice will know of Bob's public key and use it to send secure messages to Bob (that only Bob can decrypt). Because the private and public keys are related they form a secure encrypt-decrypt process and are generated together at the same time from a mathematical process using common parameters. How exactly this is done will be worked through in the following sections of this document. \\
+For the purposes of describing the process of sending secure messages from a to b, we will introduce the standard parlance, Alice and Bob. Alice (a) is the sender and Bob (b) is the recipient. Since we are discussing RSA here, which is a public asymmetric system, Bob will have a related key pair, a private and public key. Only Bob will know his private key, but his corresponding public key is shared. Alice will know of Bob's public key and use it to send secure messages to Bob (that only Bob can decrypt). Because the private and public keys are related they form a secure encrypt-decrypt process and are generated together at the same time from a mathematical process using common parameters. How exactly this is done will be worked through in the following sections of this document. \\
 \\
 This document will help take you through the necessary definitions, background mathematics and how it is used in RSA asymmetric public key cryptography. We will see that the building blocks are not very complex. Further reading may be necessary but the aim is to have this relatively self contained in a single document intended for beginners, hopefully without being either too high or low-level.
 
@@ -75,7 +92,7 @@ RSA is a popular cryptographic system, it stands for the authors Rivest-Shamir-A
 It is a is a widely used public key (asymmetric) encryption algorithm. \\
 \\
 RSA uses a pair of keys – a public key for encryption and a private key for decryption and is based on modular arithmetic.
-The scheme was originally invented by Clifford Cock while working at GCHQ in Great Britain, back in 1973. This project remained secret until 1997 and hence RSA took hold in the public domain in the meantime. \\
+The scheme was originally invented by Clifford Cocks while working at GCHQ in Great Britain, back in 1973. This project remained secret until 1997 and hence RSA took hold in the public domain in the meantime. \\
 \\
 The key premise of RSA public key cryptography is based on the following key mathematical result \\
 \\
@@ -96,13 +113,13 @@ Both e and n are components of the public key, which are published and shared. \
 A sender Alice wishing to send a secret message m to a recipient Bob, encrypts it for that recipient using their (e, n) public key. \\
 The recipient has the corresponding private key (d, n) to decrypt and recover m. \\
 \\
-This may (or may not) seem simple enough, to help understand how this works and is used this document will run through the relevant parts and supporting mathematics from the ground up. \\
+This may (or may not) seem simple enough. To help understand how this really works, mathematically (and how it is used) this document will run through the relevant parts and supporting mathematics from the ground up. \\
 \\
-Given all this then, we use it in RSA, like this \\
+Given all this, we use it in RSA, as follows \\
 \\
 \textbf{To encrypt} \\
 \\
-To Encrypt a plain text message m for Bob, Alice requires Bob's public key (e, n) \\
+To Encrypt a plain text message m for Bob, Alice requires Bob's unique public key (e, n) and uses it to compute the corresponding cipher-text as follows \\
 \\
 $ c = m^e \ mod \ n $ \\
 \\
@@ -121,8 +138,8 @@ $ m = c^d = (m^e)^d = m^{ed} \ (mod \ n) = m$ (the original message) by (1) \\
 
 \textbf{Summary} \\
 \\
-We choose the public modulus n = p.q where p and q are very large primes \\
-and e is selected as a fixed public 'exponent' \\
+We choose the public modulus n = p.q where p and q are very large non-equal primes \\
+and e is selected as a fixed publicly shared 'exponent' \\
 \\
 \textbf{Public Key - (e, n)} \\
 \\
@@ -130,7 +147,7 @@ and e is selected as a fixed public 'exponent' \\
     * Shared publicly, used to encrypt data only intended for the recipient. \\
     * comprised of the modulus (n) and the public exponent (e) as (e, n). \\
 \\
-n is the product of chosen large primes p and q \\
+n is the product of chosen large non-equal primes p and q \\
 and e is a preselected exponent such as 65537 (a common value) \\
 \\
 \textbf{Private key - (d, n)} \\
@@ -190,11 +207,11 @@ This would be written in mathematical notation as \\
 \\
 $ 5 \equiv 8 \equiv 2 \ mod \ 3 $ \\
 \\
-where $ \equiv $ is the symbol for congruence in modular arithmetic. \\
+where $ \equiv $ is the symbol for congruence in modular arithmetic. Meaning having the same remainder, after division by the modulus. \\
 \\
 e.g. \\
 \\
-$ 5 - 3 = 2 $ and $ 8 - 2x3 = 8 - 6 = 2 $, thus both 5 and 8 are congruent to 2 mod 3 \\
+$ 5 - 3 = 2 $ and $ 8 - 2 \times 3 = 8 - 6 = 2 $, thus both 5 and 8 are congruent to 2 mod 3 \\
 
 
 \subsection*{2.3 Co-Primes and GCD}
@@ -312,6 +329,15 @@ In this short document we have seen how the popular public key (asymmetric) cryp
 The key building blocks of modular arithmetic, prime numbers, Fermat's Little Theorem (FLT) and Euler's Generalization of FLT have been introduced along the way to provide an understanding of the mathematical mechanisms by which this system works. \\
 \\
 Whilst there is more to know in this area generally, such as the use of PKI, hopefully this document has illustrated how RSA works, mathematically (and practically) from the ground up. \\
+\\
+Notes on cryptographic strength. \\
+\\
+Whilst RSA is no longer seen as the height of security, RSA-2048 is still considered secure enough for general use. However, its lifespan is limited to around 2030 according to the National Institute of Standards and Technology (NIST). \\
+Increased security can of course be found using larger key sizes, such as RSA-3072 or RSA-4096. \\
+\\
+Better cryptographic systems such as Lattice-based and cryptographic hash algorithms may currently be the best options as improvements over RSA, as they are both resistant to classical and quantum methods. The latter being an important vital aspect to consider for future proofing. \\
+\\
+The primary concern for the future is not classical computing but the development of quantum computers, which could break RSA encryption more easily. \\
 \\
 Any comments, issues, mistakes, anomalies or omissions in this document, feel free to let the author know for correction - since it is hosted in the public domain in GitHub, a GitHub Issue is suitable for providing the feedback. \\
 \\
